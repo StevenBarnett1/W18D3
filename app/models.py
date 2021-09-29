@@ -22,3 +22,35 @@ class Employee(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+
+class Menu(db.Model, UserMixin):
+    __tablename__ = 'menus'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+
+    menu_item = db.relationship("MenuItem", backpopulates="menus")
+
+
+class MenuItem(db.Model, UserMixin):
+    __tablename__ = 'menu_items'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+
+    menu_id = db.Column(db.Integer, db.ForeignKey("menu.id"))
+    menu = db.relationship("Menu", back_populates="menu_items")
+    
+    menu_item_type_id = db.Column(db.Integer, db.ForeignKey("menu_item_type.id"))
+    menu_item_type = db.relationship("MenuitemType", back_populates="menu_items")
+
+
+class MenuitemType(db.Model, UserMixin):
+    __tablename__ = "menu_item_types"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), nullable=False)
+
+    menu_item = db.relationship("MenuItem", back_populates="menu_item_types")
