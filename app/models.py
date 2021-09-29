@@ -40,10 +40,10 @@ class MenuItem(db.Model, UserMixin):
     name = db.Column(db.String(50), nullable=False)
     price = db.Column(db.Float, nullable=False)
 
-    menu_id = db.Column(db.Integer, db.ForeignKey("menu.id"))
+    menu_id = db.Column(db.Integer, db.ForeignKey("menus.id"))
     menu = db.relationship("Menu", back_populates="menu_items")
     
-    menu_item_type_id = db.Column(db.Integer, db.ForeignKey("menu_item_type.id"))
+    menu_item_type_id = db.Column(db.Integer, db.ForeignKey("menu_item_types.id"))
     type = db.relationship("MenuItemType", back_populates="menu_items")
 
 

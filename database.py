@@ -28,12 +28,13 @@ with app.app_context():
     jambalaya = MenuItem(name="Jambalaya", price=21.98, type=entrees, menu=dinner)
 
     employee = Employee(name="Margot", employee_number=1234, password="password")
-    
+
     db.session.add(employee)
+    db.session.add(dinner)
     db.session.add(beverages)
     db.session.add(entrees)
     db.session.add(sides)
-    db.session.add(dinner)
+
     db.session.add(fries)
     db.session.add(drp)
     db.session.add(jambalaya)
