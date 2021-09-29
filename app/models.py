@@ -6,11 +6,11 @@ db = SQLAlchemy()
 
 class Employee(db.Model, UserMixin):
     __tablename__ = 'employees'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     employee_number = db.Column(db.Integer, nullable=False, unique=True)
-    hashed_password = db.Column(db.String(100), nullable=False)
+    hashed_password = db.Column(db.String(200), nullable=False)
 
     @property
     def password(self):
@@ -21,4 +21,4 @@ class Employee(db.Model, UserMixin):
         self.hashed_password = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)    
+        return check_password_hash(self.password, password)
