@@ -30,7 +30,7 @@ class Menu(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
 
-    menu_item = db.relationship("MenuItem", back_populates="menus")
+    items = db.relationship("MenuItem", back_populates="menu")
 
 
 class MenuItem(db.Model, UserMixin):
@@ -39,12 +39,11 @@ class MenuItem(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     price = db.Column(db.Float, nullable=False)
-
     menu_id = db.Column(db.Integer, db.ForeignKey("menus.id"))
-    menu = db.relationship("Menu", back_populates="menu_items")
-    
-    menu_item_type_id = db.Column(db.Integer, db.ForeignKey("menu_item_types.id"))
-    type = db.relationship("MenuItemType", back_populates="menu_items")
+    menu_type_id = db.Column(db.Integer, db.ForeignKey("menu_item_types.id"))
+
+    menu = db.relationship("Menu", back_populates="items")
+    type = db.relationship("MenuItemType")
 
 
 class MenuItemType(db.Model, UserMixin):
@@ -53,4 +52,3 @@ class MenuItemType(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
 
-    menu_item = db.relationship("MenuItem", back_populates="menu_item_types")
